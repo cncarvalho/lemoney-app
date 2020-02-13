@@ -28,6 +28,7 @@ class DataGrid extends React.Component {
 					<TableHeader/>
 					<TableBody
 						tableRows={this.state.tableRows}
+						handleStatusChangeSuccess={() => this.fetchComponentData()}
 						handleDeleteSuccess={() => this.fetchComponentData()}/>
 				</Table>
 			</div>
