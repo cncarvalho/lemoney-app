@@ -3,8 +3,6 @@ import Table from 'react-bootstrap/Table';
 import TableBody from "./table_body.component";
 import TableHeader from "./table_header.component";
 import CreateButton from "./create_button.component";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 class DataGrid extends React.Component {
 	constructor(props) {

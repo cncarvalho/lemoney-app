@@ -4,6 +4,7 @@ import Badge from "react-bootstrap/Badge";
 import DeleteButton from "./delete_button.component";
 import EditButton from "./edit_button.component";
 import './table_row.styles.scss'
+import Form from "react-bootstrap/Form";
 
 class TableRow extends React.Component {
 	render() {
@@ -41,10 +42,16 @@ class TableRow extends React.Component {
 	renderAvailabilityTag = () => {
 		const isAvailable = this.props.rowData.attributes.available;
 		const tagText = isAvailable ? 'Yes' : 'No';
-		const tagVariant = isAvailable ? 'success' : 'secondary';
 
 		return (
-			<Badge pill variant={tagVariant}>{tagText}</Badge>
+			<Form>
+				<Form.Switch
+					label={tagText}
+					checked={isAvailable}
+					id={`offer[${this.props.rowData.id}].available`}
+					onChange={() => console.log('changed')}
+				/>
+			</Form>
 		);
 	}
 }
