@@ -12,6 +12,10 @@ class DeleteButton extends React.Component {
 	handleClick = (e) => {
 		e.preventDefault();
 
+		const actionConfirmed = confirm('This offer will be deleted. Do you wish to proceed?');
+
+		if (!actionConfirmed) return;
+
 		const requestUrl = `${Api.address}/offers/${this.props.resourceId}`;
 		const requestOptions = {method: 'DELETE'};
 
