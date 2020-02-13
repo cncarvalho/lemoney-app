@@ -5,7 +5,7 @@ import DataGrid from "../../../components/admin/offers/data_grid/data_grid.compo
 const Index = () => {
 	return (
 		<View title='Offers'>
-			<DataGrid fetchUrl='http://localhost:3001/offers'/>
+			<DataGrid/>
 		</View>
 	);
 };

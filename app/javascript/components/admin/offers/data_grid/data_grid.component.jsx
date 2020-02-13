@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from "prop-types";
 import Table from 'react-bootstrap/Table';
 import TableBody from "./table_body.component";
 import TableHeader from "./table_header.component";
@@ -29,7 +28,9 @@ class DataGrid extends React.Component {
 	}
 
 	fetchComponentData() {
-		fetch(this.props.fetchUrl)
+		const fetchUrl = `${Api.address}/offers`;
+
+		fetch(fetchUrl)
 			.then(response => response.json())
 			.then(jsonResponse => this.mapResponseIntoState(jsonResponse))
 			.then(newState => this.setState(newState))
@@ -39,9 +40,5 @@ class DataGrid extends React.Component {
 		return Promise.resolve({tableRows: jsonResponse.data});
 	}
 }
-
-DataGrid.propTypes = {
-	fetchUrl: PropTypes.string.isRequired
-};
 
 export default DataGrid

@@ -1,21 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import {FaRegTrashAlt as DeleteIcon} from "react-icons/fa";
 import {toast} from 'react-toastify';
 
 class DeleteButton extends React.Component {
 	render() {
 		return (
-			<a href="#" className='text-danger' onClick={this.handleClick}>
+			<Button variant="danger" size='sm' onClick={this.handleClick}>
 				<DeleteIcon/>
-			</a>
+			</Button>
 		);
 	}
 
-	handleClick = (event) => {
-		event.preventDefault();
-
-		const requestUrl = `http://localhost:3001/offers/${this.props.resourceId}`;
+	handleClick = () => {
+		const requestUrl = `${Api.address}/offers/${this.props.resourceId}`;
 		const requestOptions = {method: 'DELETE'};
 
 		fetch(requestUrl, requestOptions).then(this.handleResponse);
