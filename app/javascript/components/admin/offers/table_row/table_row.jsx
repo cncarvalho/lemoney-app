@@ -1,24 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import Badge from "react-bootstrap/Badge";
-import DeleteButton from "./delete_button.component";
-import EditButton from "./edit_button.component";
-import './table_row.styles.scss'
 import Form from "react-bootstrap/Form";
+import EditButton from "../edit_button/edit_button";
+import DeleteButton from "../delete_button/delete_button";
+import './table_row.scss';
 
 class TableRow extends React.Component {
 	render() {
 		const attributes = this.props.rowData.attributes;
 
 		return (
-			<tr>
+			<tr className='table-row'>
 				<td className="align-middle">{this.props.rowData.id}</td>
 				<td className="align-middle">{attributes.advertiser_name}</td>
 				<td className="align-middle">{attributes.url}</td>
-				<td className='align-middle text-center'>{this.renderAvailabilityTag()}</td>
+				<td className='align-middle text-center'>{this.renderAvailabilitySwitch()}</td>
 				<td className='align-middle text-center'>
-					{this.renderDeleteButton()}
-					{this.renderEditButton()}
+					<div className="d-inline-block mr-2">
+						{this.renderDeleteButton()}
+					</div>
+				</td>
+				<td className='align-middle text-center'>
+					<div className='d-inline-block'>
+						{this.renderEditButton()}
+					</div>
 				</td>
 			</tr>
 		);
@@ -39,7 +44,7 @@ class TableRow extends React.Component {
 		);
 	}
 
-	renderAvailabilityTag = () => {
+	renderAvailabilitySwitch = () => {
 		const isAvailable = this.props.rowData.attributes.available;
 		const tagText = isAvailable ? 'Yes' : 'No';
 

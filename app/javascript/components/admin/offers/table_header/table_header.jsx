@@ -1,15 +1,17 @@
-import React from 'react'
+import React from 'react';
+import './table_header.scss';
 
 class TableHeader extends React.Component {
 	render() {
 		return (
-			<thead>
+			<thead className='table-header'>
 			<tr>
-				<th>#</th>
+				<th>ID</th>
 				<th>Advertiser name</th>
 				<th>URL</th>
 				<th className='text-center'>Available?</th>
-				<th className='text-center'>Actions</th>
+				<th></th>
+				<th></th>
 			</tr>
 			</thead>
 		);

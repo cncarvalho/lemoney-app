@@ -1,8 +1,9 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
-import TableBody from "./table_body.component";
-import TableHeader from "./table_header.component";
-import CreateButton from "./create_button.component";
+import CreateButton from "../create_button/create_button";
+import TableHeader from "../table_header/table_header";
+import TableBody from "../table_body/table_body";
+import './data_grid.scss'
 
 class DataGrid extends React.Component {
 	constructor(props) {
@@ -19,11 +20,11 @@ class DataGrid extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<div className='mb-4 float-right'>
+			<div className='data-grid'>
+				<div className="float-right">
 					<CreateButton/>
 				</div>
-				<Table responsive striped hover>
+				<Table>
 					<TableHeader/>
 					<TableBody
 						tableRows={this.state.tableRows}
