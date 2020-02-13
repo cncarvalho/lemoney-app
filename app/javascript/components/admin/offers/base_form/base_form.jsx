@@ -20,6 +20,7 @@ class BaseForm extends React.Component {
 				starts_at: props.starts_at || '',
 				url: props.url || '',
 			},
+			hasUnsavedChanges: false,
 			validationErrors: {}
 		}
 	}
@@ -107,13 +108,30 @@ class BaseForm extends React.Component {
 				</Form.Group>
 
 				<Row>
-					<Col>
-						<Button className='float-right' variant="primary" type="submit">
+					<Col className='text-right'>
+						{this.state.hasUnsavedChanges ? this.renderDiscardButton() : this.renderCancelButton()}
+						<Button variant="primary" type="submit">
 							Save
 						</Button>
 					</Col>
 				</Row>
 			</Form>
+		);
+	}
+
+	renderCancelButton() {
+		return (
+			<Button className='mr-2' variant="danger" href='/admin/offers'>
+				Cancel
+			</Button>
+		);
+	}
+
+	renderDiscardButton() {
+		return (
+			<Button className='mr-2' variant="danger" onClick={() => this.discardChanges()}>
+				Discard changes
+			</Button>
 		);
 	}
 
@@ -133,8 +151,7 @@ class BaseForm extends React.Component {
 	handleResponse = (response) => {
 		if (response.ok) {
 			toast.success('The offer was successfully created');
-			window.location.href = '/admin/offers';
-			return;
+			return this.redirectBack();
 		} else if (response.status === 403) {
 			return toast.error('You have no permission to do this');
 		} else if (response.status === 422) {
@@ -153,6 +170,17 @@ class BaseForm extends React.Component {
 		toast.error('An error has occurred');
 	};
 
+	redirectBack() {
+		window.location.href = '/admin/offers';
+	}
+
+	discardChanges() {
+		const actionConfirmed = confirm('All changes will be discarded. Do you wish to proceed?');
+		if (actionConfirmed) {
+			return this.redirectBack();
+		}
+	}
+
 	mapValidationErrorsIntoState = (response) => {
 		return response.data.errors.reduce((newState, fieldValidation) => {
 			newState[fieldValidation.field] = fieldValidation.messages.join(', ');
@@ -162,12 +190,21 @@ class BaseForm extends React.Component {
 
 	handleInputChange = e =>
 		this.setState({
-			formData: {...this.state.formData, [e.target.name]: e.target.value}
+			hasUnsavedChanges: true,
+			formData: {
+				...this.state.formData,
+				[e.target.name]: e.target.value,
+			}
 		});
 
 	handleSwitchChange = e =>
 		this.setState({
-			formData: {...this.state.formData, [e.target.name]: e.target.checked}
+			hasUnsavedChanges: true,
+			formData: {
+				...this.state.formData,
+				[e.target.name]: e.target.checked,
+				hasUnsavedChanges: true
+			}
 		});
 }
 
