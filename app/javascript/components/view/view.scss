@@ -1,0 +1,15 @@
+.view {
+  background-color: white;
+  box-shadow: 2px 16px 24px 2px rgba(10, 50, 30, 0.06);
+
+  .content {
+    padding: 2rem;
+  }
+
+  .header {
+    border-bottom: 1px solid #f0f9f0;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+}

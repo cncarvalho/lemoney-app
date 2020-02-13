@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 class CreateButton extends React.Component {
 	render() {
 		return (
-			<Button variant="primary" href={`/admin/offers/new`}>
+			<Button variant="outline-success" href={`/admin/offers/new`}>
 				Create offer
 			</Button>
 		);

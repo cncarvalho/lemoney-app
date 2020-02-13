@@ -1,25 +1,22 @@
 import React from 'react'
-import PropTypes from "prop-types";
-import Card from "react-bootstrap/Card";
-import Layout from "../layout/layout.component";
+import Layout from "../layout/layout";
+import './view.scss';
 
 class View extends React.Component {
 	render() {
 		return (
 			<Layout>
-				<Card>
-					<Card.Body>
-						<Card.Title>{this.props.title}</Card.Title>
+				<div className="view">
+					<div className="header">
+						<img src="/brand.svg" alt="Lemoney"/>
+					</div>
+					<div className="content">
 						{this.props.children}
-					</Card.Body>
-				</Card>
+					</div>
+				</div>
 			</Layout>
 		);
 	}
 }
-
-View.propTypes = {
-	title: PropTypes.string.isRequired
-};
 
 export default View
