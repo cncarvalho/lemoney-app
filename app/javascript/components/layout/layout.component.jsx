@@ -15,7 +15,7 @@ class Layout extends React.Component {
 					</Navbar>
 				</header>
 				<main>
-					<Container fluid>
+					<Container>
 						{this.props.children}
 					</Container>
 				</main>
