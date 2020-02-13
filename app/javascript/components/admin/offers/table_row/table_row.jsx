@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import Form from "react-bootstrap/Form";
 import EditButton from "../edit_button/edit_button";
 import DeleteButton from "../delete_button/delete_button";
 import './table_row.scss';
+import ChangeStatusButton from "../change_status_button/change_status_button";
 
 class TableRow extends React.Component {
 	render() {
@@ -45,24 +45,18 @@ class TableRow extends React.Component {
 	}
 
 	renderAvailabilitySwitch = () => {
-		const isAvailable = this.props.rowData.attributes.available;
-		const tagText = isAvailable ? 'Yes' : 'No';
-
 		return (
-			<Form>
-				<Form.Switch
-					label={tagText}
-					checked={isAvailable}
-					id={`offer[${this.props.rowData.id}].available`}
-					onChange={() => console.log('changed')}
-				/>
-			</Form>
+			<ChangeStatusButton
+				resourceId={this.props.rowData.id}
+				handleSuccess={this.props.handleStatusChangeSuccess}
+				isAvailable={this.props.rowData.attributes.available}/>
 		);
 	}
 }
 
 TableRow.propTypes = {
 	handleDeleteSuccess: PropTypes.func.isRequired,
+	handleStatusChangeSuccess: PropTypes.func.isRequired,
 	rowData: PropTypes.object.isRequired,
 };
 

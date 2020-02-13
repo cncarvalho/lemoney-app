@@ -16,6 +16,7 @@ class TableBody extends React.Component {
 			<TableRow
 				key={key}
 				rowData={rowData}
+				handleStatusChangeSuccess={this.props.handleStatusChangeSuccess}
 				handleDeleteSuccess={this.props.handleDeleteSuccess}/>
 		);
 	};
@@ -23,6 +24,7 @@ class TableBody extends React.Component {
 
 TableBody.propTypes = {
 	handleDeleteSuccess: PropTypes.func.isRequired,
+	handleStatusChangeSuccess: PropTypes.func.isRequired,
 	tableRows: PropTypes.array.isRequired,
 };
 
