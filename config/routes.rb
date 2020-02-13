@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
 	namespace :admin do
-		resources :offers, only: %i[index new]
+		resources :offers, only: %i[edit index new]
 	end
 end

@@ -11,14 +11,15 @@ class BaseForm extends React.Component {
 		super(props);
 
 		this.state = {
-			formData: {
-				advertiser_name: props.advertiser_name || '',
-				available: props.available || false,
-				description: props.description || '',
-				ends_at: props.ends_at || '',
-				premium: props.premium || false,
-				starts_at: props.starts_at || '',
-				url: props.url || '',
+			offer: {
+				advertiser_name: props.offer.advertiser_name || '',
+				available: props.offer.available || false,
+				description: props.offer.description || '',
+				ends_at: props.offer.ends_at || '',
+				id: props.offer.id || '',
+				premium: props.offer.premium || false,
+				starts_at: props.offer.starts_at || '',
+				url: props.offer.url || '',
 			},
 			hasUnsavedChanges: false,
 			validationErrors: {}
@@ -34,7 +35,7 @@ class BaseForm extends React.Component {
 												name='advertiser_name'
 												isInvalid={!!this.state.validationErrors.advertiser_name}
 												onChange={(e) => this.handleInputChange(e)}
-												value={this.state.formData.advertiser_name}/>
+												value={this.state.offer.advertiser_name}/>
 					<Form.Control.Feedback type="invalid">
 						{this.state.validationErrors.advertiser_name}
 					</Form.Control.Feedback>
@@ -46,7 +47,7 @@ class BaseForm extends React.Component {
 												name='url'
 												isInvalid={!!this.state.validationErrors.url}
 												onChange={(e) => this.handleInputChange(e)}
-												value={this.state.formData.url}/>
+												value={this.state.offer.url}/>
 					<Form.Control.Feedback type="invalid">
 						{this.state.validationErrors.url}
 					</Form.Control.Feedback>
@@ -59,7 +60,7 @@ class BaseForm extends React.Component {
 												name='description'
 												isInvalid={!!this.state.validationErrors.description}
 												onChange={(e) => this.handleInputChange(e)}
-												value={this.state.formData.description}/>
+												value={this.state.offer.description}/>
 					<Form.Control.Feedback type="invalid">
 						{this.state.validationErrors.description}
 					</Form.Control.Feedback>
@@ -71,7 +72,7 @@ class BaseForm extends React.Component {
 												name='starts_at'
 												isInvalid={!!this.state.validationErrors.starts_at}
 												onChange={(e) => this.handleInputChange(e)}
-												value={this.state.formData.starts_at}/>
+												value={this.state.offer.starts_at}/>
 					<Form.Control.Feedback type="invalid">
 						{this.state.validationErrors.starts_at}
 					</Form.Control.Feedback>
@@ -83,7 +84,7 @@ class BaseForm extends React.Component {
 												name='ends_at'
 												isInvalid={!!this.state.validationErrors.ends_at}
 												onChange={(e) => this.handleInputChange(e)}
-												value={this.state.formData.ends_at}/>
+												value={this.state.offer.ends_at}/>
 					<Form.Control.Feedback type="invalid">
 						{this.state.validationErrors.ends_at}
 					</Form.Control.Feedback>
@@ -95,7 +96,7 @@ class BaseForm extends React.Component {
 											label="Premium offer?"
 											name='premium'
 											onChange={(e) => this.handleSwitchChange(e)}
-											checked={this.state.formData.premium}/>
+											checked={this.state.offer.premium}/>
 				</Form.Group>
 
 				<Form.Group>
@@ -104,7 +105,7 @@ class BaseForm extends React.Component {
 											label="Available?"
 											name='available'
 											onChange={(e) => this.handleSwitchChange(e)}
-											checked={this.state.formData.available}/>
+											checked={this.state.offer.available}/>
 				</Form.Group>
 
 				<Row>
@@ -138,9 +139,10 @@ class BaseForm extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const requestUrl = `${Api.address}/offers/`;
-		const requestMethod = 'POST';
-		const requestBody = JSON.stringify(this.state.formData);
+		const offerId = this.state.offer.id;
+		const requestUrl = !!offerId ? `${Api.address}/offers/${offerId}` : `${Api.address}/offers/`;
+		const requestMethod = !!offerId ? 'PUT' : 'POST';
+		const requestBody = JSON.stringify(this.state.offer);
 		const requestHeaders = {Accept: 'application/json', 'Content-Type': 'application/json'};
 		const requestOptions = {headers: requestHeaders, method: requestMethod, body: requestBody};
 
@@ -191,8 +193,8 @@ class BaseForm extends React.Component {
 	handleInputChange = e =>
 		this.setState({
 			hasUnsavedChanges: true,
-			formData: {
-				...this.state.formData,
+			offer: {
+				...this.state.offer,
 				[e.target.name]: e.target.value,
 			}
 		});
@@ -200,12 +202,16 @@ class BaseForm extends React.Component {
 	handleSwitchChange = e =>
 		this.setState({
 			hasUnsavedChanges: true,
-			formData: {
-				...this.state.formData,
+			offer: {
+				...this.state.offer,
 				[e.target.name]: e.target.checked,
 				hasUnsavedChanges: true
 			}
 		});
 }
+
+BaseForm.propTypes = {
+	offer: PropTypes.object
+};
 
 export default BaseForm

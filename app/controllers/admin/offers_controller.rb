@@ -4,4 +4,7 @@ class Admin::OffersController < AdminController
 
 	def new
 	end
+
+	def edit
+	end
 end

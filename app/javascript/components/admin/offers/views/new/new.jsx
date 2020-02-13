@@ -1,11 +1,11 @@
 import React from 'react'
-import BaseForm from "../../base_form/base_form";
 import View from "../../../../view/view";
+import CreateForm from "../../create_form/create_form";
 
 const New = () => {
 	return (
 		<View>
-			<BaseForm/>
+			<CreateForm/>
 		</View>
 	);
 };
