@@ -11,11 +11,19 @@ class TableBody extends React.Component {
 
 	renderRows = () => this.props.tableRows.map(this.renderRow);
 
-	renderRow = (rowData, key) => <TableRow key={key} rowData={rowData}/>;
+	renderRow = (rowData, key) => {
+		return (
+			<TableRow
+				key={key}
+				rowData={rowData}
+				handleDeleteSuccess={this.props.handleDeleteSuccess}/>
+		);
+	};
 }
 
 TableBody.propTypes = {
-	tableRows: PropTypes.array.isRequired
+	handleDeleteSuccess: PropTypes.func.isRequired,
+	tableRows: PropTypes.array.isRequired,
 };
 
 export default TableBody

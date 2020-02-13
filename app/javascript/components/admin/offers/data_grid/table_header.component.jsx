@@ -9,7 +9,7 @@ class TableHeader extends React.Component {
 				<th>Advertiser name</th>
 				<th>URL</th>
 				<th className='text-center'>Available?</th>
-				<th>Actions</th>
+				<th className='text-center'>Actions</th>
 			</tr>
 			</thead>
 		);

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import Badge from "react-bootstrap/Badge";
+import DeleteButton from "./delete_button.component";
 
 class TableRow extends React.Component {
 	render() {
@@ -12,7 +13,11 @@ class TableRow extends React.Component {
 				<td>{attributes.advertiser_name}</td>
 				<td>{attributes.url}</td>
 				<td className='text-center'>{this.renderAvailabilityTag()}</td>
-				<td></td>
+				<td className='text-center'>
+					<DeleteButton
+						handleSuccess={this.props.handleDeleteSuccess}
+						resourceId={this.props.rowData.id}/>
+				</td>
 			</tr>
 		);
 	}
@@ -29,7 +34,8 @@ class TableRow extends React.Component {
 }
 
 TableRow.propTypes = {
-	rowData: PropTypes.object.isRequired
+	handleDeleteSuccess: PropTypes.func.isRequired,
+	rowData: PropTypes.object.isRequired,
 };
 
 export default TableRow

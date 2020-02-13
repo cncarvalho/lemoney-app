@@ -21,7 +21,9 @@ class DataGrid extends React.Component {
 		return (
 			<Table responsive striped hover>
 				<TableHeader/>
-				<TableBody tableRows={this.state.tableRows}/>
+				<TableBody
+					tableRows={this.state.tableRows}
+					handleDeleteSuccess={() => this.fetchComponentData()}/>
 			</Table>
 		);
 	}
