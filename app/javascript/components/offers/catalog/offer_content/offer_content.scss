@@ -1,0 +1,21 @@
+.offer-content {
+  border-bottom: 1px solid #f0f9f0;
+  padding: 0.8rem 1rem 1.4rem 1rem;
+
+  .advertiser-name {
+    span {
+      font-size: 0.8rem;
+    }
+  }
+
+  .description {
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    span {
+      font-weight: 600;
+    }
+  }
+}

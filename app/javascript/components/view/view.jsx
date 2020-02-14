@@ -1,5 +1,6 @@
 import React from 'react'
 import Layout from "../layout/layout";
+import Header from "./header/header";
 import './view.scss';
 
 class View extends React.Component {
@@ -7,9 +8,7 @@ class View extends React.Component {
 		return (
 			<Layout>
 				<div className="view">
-					<div className="header">
-						<img src="/brand.svg" alt="Lemoney"/>
-					</div>
+					<Header/>
 					<div className="content">
 						{this.props.children}
 					</div>

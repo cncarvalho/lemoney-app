@@ -13,7 +13,7 @@ class TableRow extends React.Component {
 			<tr className='table-row'>
 				<td className="align-middle">{this.props.rowData.id}</td>
 				<td className="align-middle">{attributes.advertiser_name}</td>
-				<td className="align-middle">{attributes.url}</td>
+				<td className="align-middle">{attributes.description}</td>
 				<td className='align-middle text-center'>{this.renderAvailabilitySwitch()}</td>
 				<td className='align-middle text-center'>
 					<div className="d-inline-block mr-2">
