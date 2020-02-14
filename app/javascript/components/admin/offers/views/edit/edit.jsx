@@ -1,13 +1,12 @@
 import React from 'react'
-import View from "../../../../view/view";
-import PropTypes from "prop-types";
 import EditForm from "../../edit_form/edit_form";
+import AuthenticatedView from "../../../authenticated_view/authenticated_view";
 
 const Edit = ({resourceId}) => {
 	return (
-		<View>
+		<AuthenticatedView>
 			<EditForm resourceId={resourceId}/>
-		</View>
+		</AuthenticatedView>
 	);
 };
 

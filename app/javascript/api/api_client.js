@@ -19,6 +19,16 @@ class ApiClient {
 		}
 	}
 
+	validateAccessTokenPresence() {
+		const tokenIsMissing = !localStorage.getItem('access-token');
+
+		if (tokenIsMissing) {
+			return this.redirectToLoginPage();
+		}
+
+		return true;
+	}
+
 	fetch(path, options = {}) {
 		const requestUrl = `${this.getAddress()}${path}`;
 		const requestHeaders = {...{}, ...options.headers, ...this.fetchAuthenticationHeaders()};
@@ -32,10 +42,14 @@ class ApiClient {
 		const requestNotAuthorized = [401, 403].includes(response.status)
 
 		if (requestNotAuthorized) {
-			window.location.href = '/admin/sessions/new';
+			this.redirectToLoginPage();
 		} else {
 			return Promise.resolve(response);
 		}
+	}
+
+	redirectToLoginPage() {
+		window.location.href = '/admin/sessions/new';
 	}
 }
 

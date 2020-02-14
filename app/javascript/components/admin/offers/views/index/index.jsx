@@ -1,12 +1,12 @@
 import React from 'react'
 import DataGrid from "../../data_grid/data_grid";
-import View from "../../../../view/view";
+import AuthenticatedView from "../../../authenticated_view/authenticated_view";
 
 const Index = () => {
 	return (
-		<View>
+		<AuthenticatedView>
 			<DataGrid/>
-		</View>
+		</AuthenticatedView>
 	);
 };
 
