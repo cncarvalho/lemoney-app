@@ -23,7 +23,8 @@ class BaseForm extends React.Component {
 				url: props.offer.url || '',
 			},
 			hasUnsavedChanges: false,
-			validationErrors: {}
+			validationErrors: {},
+			isSubmitting: false
 		}
 	}
 
@@ -123,8 +124,8 @@ class BaseForm extends React.Component {
 				<Row>
 					<Col className='text-right'>
 						{this.state.hasUnsavedChanges ? this.renderDiscardButton() : this.renderCancelButton()}
-						<Button variant="outline-success" type="submit">
-							Save
+						<Button disabled={this.state.isSubmitting} variant="outline-success" type="submit">
+							{this.state.isSubmitting ? 'Saving' : 'Save'}
 						</Button>
 					</Col>
 				</Row>
@@ -134,7 +135,10 @@ class BaseForm extends React.Component {
 
 	renderCancelButton() {
 		return (
-			<Button className='mr-2' variant="outline-danger" href='/admin/offers'>
+			<Button className='mr-2'
+							disabled={this.state.isSubmitting}
+							variant="outline-danger"
+							href='/admin/offers'>
 				Cancel
 			</Button>
 		);
@@ -142,7 +146,10 @@ class BaseForm extends React.Component {
 
 	renderDiscardButton() {
 		return (
-			<Button className='mr-2' variant="outline-danger" onClick={() => this.discardChanges()}>
+			<Button className='mr-2'
+							disabled={this.state.isSubmitting}
+							variant="outline-danger"
+							onClick={() => this.discardChanges()}>
 				Discard changes
 			</Button>
 		);
@@ -151,14 +158,16 @@ class BaseForm extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 
-		const offerId = this.state.offer.id;
-		const requestUrl = !!offerId ? `/offers/${offerId}` : `/offers`;
-		const requestMethod = !!offerId ? 'PUT' : 'POST';
-		const requestBody = this.mapStateIntoFormData();
-		const requestOptions = {method: requestMethod, body: requestBody};
+		this.setState({isSubmitting: true}, () => {
+			const offerId = this.state.offer.id;
+			const requestUrl = !!offerId ? `/offers/${offerId}` : `/offers`;
+			const requestMethod = !!offerId ? 'PUT' : 'POST';
+			const requestBody = this.mapStateIntoFormData();
+			const requestOptions = {method: requestMethod, body: requestBody};
 
-		apiClient.fetch(requestUrl, requestOptions)
-			.then(this.handleResponse);
+			apiClient.fetch(requestUrl, requestOptions)
+				.then(this.handleResponse);
+		});
 	}
 
 	handleResponse = (response) => {
@@ -175,6 +184,7 @@ class BaseForm extends React.Component {
 				.then((newState) => {
 					this.setState({
 						...this.state,
+						...{isSubmitting: false},
 						...{validationErrors: newState}
 					})
 				});
