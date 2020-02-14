@@ -1,0 +1,27 @@
+.table-row {
+  background-color: white;
+  box-shadow: 2px 4px 16px 0 rgba(10, 50, 30, 0.08);
+  font-size: 0.9rem;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    box-shadow: 4px 6px 16px 0 rgba(10, 50, 30, 0.1);
+  }
+
+  td {
+    border: 0;
+    color: #69736e;
+    height: 5rem;
+    padding: 1rem 2rem;
+
+    .custom-control-input:checked~.custom-control-label::before {
+      border-color: #42b967;
+      background-color: #42b967;
+    }
+
+    a {
+      color: #42b967;
+      font-size: 0.8rem;
+    }
+  }
+}
