@@ -1,0 +1,18 @@
+.countdown {
+  display: flex;
+  padding: 1rem;
+
+  .tag {
+    align-items: center;
+    background-color: #42b967;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+
+    span {
+      margin-left: 0.4rem;
+    }
+  }
+}
