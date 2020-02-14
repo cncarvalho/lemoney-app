@@ -37,7 +37,7 @@ class DataGrid extends React.Component {
 	}
 
 	fetchComponentData() {
-		apiClient.fetch('/offers')
+		apiClient.fetch('/offers?fetch_all=true')
 			.then(response => response.json())
 			.then(jsonResponse => this.mapResponseIntoState(jsonResponse))
 			.then(newState => this.setState(newState))
