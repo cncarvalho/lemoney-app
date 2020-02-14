@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import {toast} from 'react-toastify';
 import Form from "react-bootstrap/Form";
+import ApiClient, {apiClient} from "../../../../api/api_client";
 
 class ChangeStatusButton extends React.Component {
 	render() {
@@ -21,13 +22,13 @@ class ChangeStatusButton extends React.Component {
 	}
 
 	handleStatusChange = () => {
-		const requestUrl = `${Api.address}/offers/${this.props.resourceId}`;
+		const requestPath = `/offers/${this.props.resourceId}`;
 		const requestMethod = 'PUT';
 		const requestBody = JSON.stringify({ available: !this.props.isAvailable });
 		const requestHeaders = {Accept: 'application/json', 'Content-Type': 'application/json'};
 		const requestOptions = {headers: requestHeaders, method: requestMethod, body: requestBody};
 
-		fetch(requestUrl, requestOptions)
+		apiClient.fetch(requestPath, requestOptions)
 			.then(this.handleResponse);
 	};
 

@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import CreateButton from "../create_button/create_button";
 import TableHeader from "../table_header/table_header";
 import TableBody from "../table_body/table_body";
+import {apiClient} from "../../../../api/api_client";
 import './data_grid.scss'
 
 class DataGrid extends React.Component {
@@ -36,9 +37,7 @@ class DataGrid extends React.Component {
 	}
 
 	fetchComponentData() {
-		const fetchUrl = `${Api.address}/offers`;
-
-		fetch(fetchUrl)
+		apiClient.fetch('/offers')
 			.then(response => response.json())
 			.then(jsonResponse => this.mapResponseIntoState(jsonResponse))
 			.then(newState => this.setState(newState))

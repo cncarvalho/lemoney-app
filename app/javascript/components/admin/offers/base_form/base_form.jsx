@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import {toast} from "react-toastify";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {apiClient} from "../../../../api/api_client";
 
 class BaseForm extends React.Component {
 	constructor(props) {
@@ -122,7 +123,7 @@ class BaseForm extends React.Component {
 				<Row>
 					<Col className='text-right'>
 						{this.state.hasUnsavedChanges ? this.renderDiscardButton() : this.renderCancelButton()}
-						<Button variant="primary" type="submit">
+						<Button variant="outline-success" type="submit">
 							Save
 						</Button>
 					</Col>
@@ -133,7 +134,7 @@ class BaseForm extends React.Component {
 
 	renderCancelButton() {
 		return (
-			<Button className='mr-2' variant="danger" href='/admin/offers'>
+			<Button className='mr-2' variant="outline-danger" href='/admin/offers'>
 				Cancel
 			</Button>
 		);
@@ -141,7 +142,7 @@ class BaseForm extends React.Component {
 
 	renderDiscardButton() {
 		return (
-			<Button className='mr-2' variant="danger" onClick={() => this.discardChanges()}>
+			<Button className='mr-2' variant="outline-danger" onClick={() => this.discardChanges()}>
 				Discard changes
 			</Button>
 		);
@@ -151,12 +152,12 @@ class BaseForm extends React.Component {
 		e.preventDefault();
 
 		const offerId = this.state.offer.id;
-		const requestUrl = !!offerId ? `${Api.address}/offers/${offerId}` : `${Api.address}/offers/`;
+		const requestUrl = !!offerId ? `/offers/${offerId}` : `/offers`;
 		const requestMethod = !!offerId ? 'PUT' : 'POST';
 		const requestBody = this.mapStateIntoFormData();
 		const requestOptions = {method: requestMethod, body: requestBody};
 
-		fetch(requestUrl, requestOptions)
+		apiClient.fetch(requestUrl, requestOptions)
 			.then(this.handleResponse);
 	}
 
