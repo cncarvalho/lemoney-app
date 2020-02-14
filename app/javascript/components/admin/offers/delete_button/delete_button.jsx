@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {toast} from 'react-toastify';
+import {apiClient} from "../../../../api/api_client";
 
 class DeleteButton extends React.Component {
 	render() {
@@ -16,10 +17,11 @@ class DeleteButton extends React.Component {
 
 		if (!actionConfirmed) return;
 
-		const requestUrl = `${Api.address}/offers/${this.props.resourceId}`;
+		const requestPath = `/offers/${this.props.resourceId}`;
 		const requestOptions = {method: 'DELETE'};
 
-		fetch(requestUrl, requestOptions).then(this.handleResponse);
+		apiClient.fetch(requestPath, requestOptions)
+			.then(this.handleResponse);
 	};
 
 	handleResponse = (response) => {

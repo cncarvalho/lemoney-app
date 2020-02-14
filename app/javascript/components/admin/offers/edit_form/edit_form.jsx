@@ -1,6 +1,7 @@
 import React from 'react'
 import BaseForm from "../base_form/base_form";
 import PropTypes from "prop-types";
+import {apiClient} from "../../../../api/api_client";
 
 class EditForm extends React.Component {
 	constructor(props) {
@@ -22,9 +23,9 @@ class EditForm extends React.Component {
 	}
 
 	fetchComponentData() {
-		const fetchUrl = `${Api.address}/offers/${this.props.resourceId}`;
+		const requestPath = `/offers/${this.props.resourceId}`;
 
-		fetch(fetchUrl)
+		apiClient.fetch(requestPath)
 			.then(response => response.json())
 			.then(jsonResponse => this.mapResponseIntoState(jsonResponse))
 			.then(newState => this.setState(newState))
