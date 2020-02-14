@@ -1,12 +1,12 @@
 import React from 'react'
-import View from "../../../../view/view";
 import CreateForm from "../../create_form/create_form";
+import AuthenticatedView from "../../../authenticated_view/authenticated_view";
 
 const New = () => {
 	return (
-		<View>
+		<AuthenticatedView>
 			<CreateForm/>
-		</View>
+		</AuthenticatedView>
 	);
 };
 
