@@ -54,6 +54,17 @@ class BaseForm extends React.Component {
 				</Form.Group>
 
 				<Form.Group>
+					<Form.Label>Image</Form.Label>
+					<Form.Control type="file"
+												name='image'
+												isInvalid={!!this.state.validationErrors.image}
+												onChange={(e) => this.handleImageSelected(e)}/>
+					<Form.Control.Feedback type="invalid">
+						{this.state.validationErrors.url}
+					</Form.Control.Feedback>
+				</Form.Group>
+
+				<Form.Group>
 					<Form.Label>Description</Form.Label>
 					<Form.Control as="textarea"
 												rows='3'
@@ -142,9 +153,8 @@ class BaseForm extends React.Component {
 		const offerId = this.state.offer.id;
 		const requestUrl = !!offerId ? `${Api.address}/offers/${offerId}` : `${Api.address}/offers/`;
 		const requestMethod = !!offerId ? 'PUT' : 'POST';
-		const requestBody = JSON.stringify(this.state.offer);
-		const requestHeaders = {Accept: 'application/json', 'Content-Type': 'application/json'};
-		const requestOptions = {headers: requestHeaders, method: requestMethod, body: requestBody};
+		const requestBody = this.mapStateIntoFormData();
+		const requestOptions = {method: requestMethod, body: requestBody};
 
 		fetch(requestUrl, requestOptions)
 			.then(this.handleResponse);
@@ -205,9 +215,28 @@ class BaseForm extends React.Component {
 			offer: {
 				...this.state.offer,
 				[e.target.name]: e.target.checked,
-				hasUnsavedChanges: true
 			}
 		});
+
+	handleImageSelected = e => {
+		this.setState({
+			hasUnsavedChanges: true,
+			offer: {
+				...this.state.offer,
+				[e.target.name]: e.target.files[0],
+			}
+		});
+	}
+
+	mapStateIntoFormData = () => {
+		const formData = new FormData();
+
+		for (const [key, value] of Object.entries(this.state.offer)) {
+			formData.append(`offer[${key}]`, value);
+		}
+
+		return formData;
+	}
 }
 
 BaseForm.propTypes = {
